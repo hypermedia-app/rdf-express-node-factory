@@ -1,10 +1,9 @@
 {
   "name": "rdf-express-node-factory",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Express middleware which sets up an RDF/JS factory creating named nodes relative to the request URL",
   "main": "index.js",
   "scripts": {
-    "postinstall": "npx yarn-deduplicate",
     "prepare": "husky install",
     "prepack": "tsc",
     "lint": "eslint . --ext .ts --quiet --ignore-path .gitignore --ignore-path .eslintignore",
