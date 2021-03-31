@@ -11,6 +11,19 @@
     "test": "c8 --all --reporter=lcov mocha --recursive --extension ts test",
     "release": "changeset publish"
   },
+  "files": [
+    "*.js",
+    "*.d.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hypermedia-app/rdf-express-node-factory"
+  },
+  "author": {
+    "email": "awesome@hypermedia.app",
+    "name": "Tomasz Pluskiewicz"
+  },
+  "license": "MIT",
   "dependencies": {
     "absolute-url": "^1.2.2",
     "is-absolute-url": "^3.0.3",
