@@ -23,7 +23,9 @@ export default function (factory: DataFactory = $rdf): express.RequestHandler {
           return factory.namedNode(value)
         }
 
-        const uri = new URL(path.join(req.baseUrl, value), baseIri)
+        const uri = value.startsWith('/')
+          ? new URL(path.join(req.baseUrl, value), baseIri)
+          : new URL(value, baseIri)
 
         return factory.namedNode<any>(uri.toString())
       },

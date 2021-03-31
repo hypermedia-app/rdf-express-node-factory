@@ -40,6 +40,23 @@ describe('middleware', () => {
         .expect('http://example.com/foo/bar')
     })
 
+    it('resolves relative paths against current resource', async () => {
+      // given
+      app.use(middleware())
+      app.use('/foo', Router().get('/bar/baz', (req, res) => {
+        res.send(req.rdf.namedNode('../buzz').value)
+      }))
+
+      // when
+      const response = request(app)
+        .get('/foo/bar/baz')
+        .set('host', 'example.com')
+
+      // then
+      await response
+        .expect('http://example.com/foo/buzz')
+    })
+
     it('returns unchanged URI when it is already absolute', async () => {
       // given
       app.use(middleware())
