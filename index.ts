@@ -3,6 +3,7 @@ import absoluteUrl from 'absolute-url'
 import { DataFactory, NamedNode } from 'rdf-js'
 import $rdf from 'rdf-ext'
 import path from 'path'
+import isAbsoluteUrl from 'is-absolute-url'
 
 declare module 'express-serve-static-core' {
   export interface Request {
@@ -18,6 +19,10 @@ export default function (factory: DataFactory = $rdf): express.RequestHandler {
     req.rdf = {
       ...factory,
       namedNode<Iri extends string = string>(value: Iri): NamedNode<Iri> {
+        if (isAbsoluteUrl(value)) {
+          return factory.namedNode(value)
+        }
+
         const uri = new URL(path.join(req.baseUrl, value), baseIri)
 
         return factory.namedNode<any>(uri.toString())
