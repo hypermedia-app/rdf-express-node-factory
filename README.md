@@ -19,7 +19,7 @@ The package exports a single factory function, which returns an express middlewa
 
 There is an optional [DataFactory](https://rdf.js.org/data-model-spec/#datafactory-interface) parameter. By default, [rdf-ext](https://npm.im/rdf-ext) is used.
 
-The middleware attaches
+The middleware attaches an RDF/JS DataFactory to the `Request` object as `req.rdf`.
 
 ## Usage
 
