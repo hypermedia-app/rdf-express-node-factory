@@ -11,8 +11,8 @@ declare module 'express-serve-static-core' {
   }
 }
 
-export default function (factory: DataFactory = $rdf): express.RequestHandler {
-  return (req, res, next) => {
+export function attach(req: express.Request, factory: DataFactory = $rdf): void {
+  if (!req.rdf) {
     absoluteUrl.attach(req)
     const baseIri = new URL(req.absoluteUrl())
 
@@ -30,6 +30,12 @@ export default function (factory: DataFactory = $rdf): express.RequestHandler {
         return factory.namedNode<any>(uri.toString())
       },
     }
+  }
+}
+
+export default function (factory?: DataFactory): express.RequestHandler {
+  return (req, res, next) => {
+    attach(req, factory)
 
     next()
   }
