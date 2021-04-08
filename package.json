@@ -1,6 +1,6 @@
 {
   "name": "rdf-express-node-factory",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Express middleware which sets up an RDF/JS factory creating named nodes relative to the request URL",
   "main": "index.js",
   "scripts": {
