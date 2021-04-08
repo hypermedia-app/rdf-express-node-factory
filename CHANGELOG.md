@@ -1,5 +1,11 @@
 # rdf-express-node-factory
 
+## 1.1.0
+
+### Minor Changes
+
+- d53f003: Add attach method to set up from another handler
+
 ## 1.0.1
 
 ### Patch Changes
