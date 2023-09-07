@@ -1,18 +1,19 @@
-import { describe, it } from 'mocha'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import request from 'supertest'
 import express, { Express, Router } from 'express'
 import { expect } from 'chai'
 import sinon from 'sinon'
-import { DataFactory } from 'rdf-js'
-import middleware from '..'
+import { DataFactory } from '@rdfjs/types'
+import { Environment } from '@rdfjs/environment/Environment'
+import middleware from '../index.js'
 
 describe('middleware', () => {
   let app: Express
-  let factory: DataFactory
+  let factory: Environment<DataFactory>
 
   beforeEach(() => {
     app = express()
-    factory = {
+    factory = <any>{
       blankNode: sinon.spy(),
       defaultGraph: sinon.spy(),
       literal: sinon.spy(),

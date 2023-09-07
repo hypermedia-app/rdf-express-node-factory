@@ -1,17 +1,21 @@
+import path from 'path'
 import type express from 'express'
 import absoluteUrl from 'absolute-url'
-import { DataFactory, NamedNode } from 'rdf-js'
-import $rdf from 'rdf-ext'
-import path from 'path'
+import type { DataFactory, NamedNode } from '@rdfjs/types'
 import isAbsoluteUrl from 'is-absolute-url'
+import { Environment } from '@rdfjs/environment/Environment'
+import D from '@rdfjs/environment/DataFactory.js'
+import E from '@rdfjs/environment'
+
+type Env = Environment<DataFactory>
 
 declare module 'express-serve-static-core' {
   export interface Request {
-    rdf: DataFactory
+    rdf: Env
   }
 }
 
-export function attach(req: express.Request, factory: DataFactory = $rdf): void {
+export function attach(req: express.Request, factory: Env = new E([D])): void {
   if (!req.rdf) {
     absoluteUrl.attach(req)
     const baseIri = new URL(req.absoluteUrl())
@@ -27,13 +31,13 @@ export function attach(req: express.Request, factory: DataFactory = $rdf): void 
           ? new URL(path.join(req.baseUrl, value), baseIri)
           : new URL(value, baseIri)
 
-        return factory.namedNode<any>(uri.toString())
+        return factory.namedNode(uri.toString() as unknown as Iri)
       },
     }
   }
 }
 
-export default function (factory?: DataFactory): express.RequestHandler {
+export default function (factory?: Env): express.RequestHandler {
   return (req, res, next) => {
     attach(req, factory)
 
